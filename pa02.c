@@ -4,13 +4,14 @@
 
 int main(int argc, char* argv[]) 
 {
-  FILE *fptr = NULL;
   if (argc != 3) 
   {
       return EXIT_FAILURE;
   }
   
-  if ((fptr = fopen(argv[1], "r")) == NULL) 
+  FILE * fptr = fopen(argv[1], "r");
+
+  if (fptr == NULL) 
   {
       return EXIT_FAILURE;
   }
@@ -21,11 +22,10 @@ int main(int argc, char* argv[])
   
   /* testing for Find_maze_dimensions */
 
-  int nrow, ncol;
+  int nrow = 0;
+  int ncol = 0;
   Find_maze_dimensions(fptr, &nrow, &ncol);
-  printf("Find_maze_dimensions : ");
-  printf("%d %d\n", nrow, ncol);
-
+  printf("Find_maze_dimensions : %dx%d\n", nrow, ncol);
 
   /* testing for Count_path_locations */
 
@@ -35,23 +35,9 @@ int main(int argc, char* argv[])
 
   /* testing for Get_location_type */
 
-  int nnrow, nncol;
   printf("Get_location_type : ");
-  Find_maze_dimensions(fptr, &nnrow, &nncol);
-  int row, col; /* loop counters for row and column */
-  for (col = 0; col < nncol; col++) {
-     for (row = 0 ; row < nnrow; row++) {
-	char loc_type = Get_location_type(fptr, row, col);
-        if (loc_type == PATH) {
-           printf("%d %d PATH\n", row, col);
-	} else if (loc_type == WALL) {
-           printf("%d %d WALL\n", row, col);
-        } else {
-           printf("%d %d incorrect\n", row, col);
-        }
-     }
-  } 
-
+  Get_location_type(fptr);
+ /* loop counters for row and column */
 
   /* testing for Represent_maze_in_one_line */
   printf("Represent_maze_in_one_line : ");

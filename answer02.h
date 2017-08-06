@@ -27,7 +27,7 @@ int Count_path_locations(FILE *fptr);
 /* You do not have to worry about the coordinates being out of range */
 /* You may assume that the maze is of the correct format */
 
-char Get_location_type(FILE *fptr, int row, int col);
+void Get_location_type(FILE *fptr);
  
 /* Given a filename, re-represent the maze in the file pointer fptr */
 /* in a single line */

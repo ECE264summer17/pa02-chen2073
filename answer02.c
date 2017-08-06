@@ -11,7 +11,7 @@ void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
 {
    *nrow = *ncol = 0;
 
-	fseek(fptr, 0, SEEK_SET);// reach the end of file
+	fseek(fptr, 0, SEEK_SET); // reach the end of file
 	
 	int f;
 
@@ -36,15 +36,13 @@ int Count_path_locations(FILE *fptr)
 {
 	int count = 0;
 	fseek(fptr, 0, SEEK_SET);
-	char f = 0;
 
-	do{
-	f = fgetc(fptr);
-
+	int f = fgetc(fptr);
+	while(f != EOF){
 	if(f == ' ' || f == '.' || f == 's' || f == 'e'){ 
-	count++;
+	count++;}
+	f = fgetc(fptr);
 	}
-	}while(f != EOF);
 
    return count;
 }
@@ -55,32 +53,32 @@ int Count_path_locations(FILE *fptr)
 /* you may assume that these coordinates are always valid */
 /* you may assume that the maze is of the correct format */
 
-char Get_location_type(FILE *fptr, int row, int col) {
+void Get_location_type(FILE *fptr) {
 	
-	int nrow=0;
-	int ncol=0; 
-	int f;
- 
-	fseek(fptr, 0, SEEK_SET) ;
-	for(nrow=0; nrow <= row; nrow++){
+	fseek(fptr, 0, SEEK_SET);		
+	int f = fgetc(fptr);	
+	int nrow = 0, ncol = 0;
 
-		
-	
-		for(ncol=0; ncol <= col; ncol++){
-					
-		f = fgetc(fptr);	
-
+	while(f != EOF)
+	{	
+		if(f == '\n'){
+		nrow++;
+		ncol = 0;
+		}		
+		else{ 
+			if(f == '.' || f == 's' || f == 'e')
+			{
+				printf("%d %d PATH\n", nrow, ncol);
+			}
+			else
+			{
+				printf("%d %d WALL\n", nrow, ncol);
+			}
+			ncol++;
 		}
+		f = fgetc(fptr);
 	}
-			
-			if(f == '.' || f == 's' || f == 'e'){
-				return PATH;
-			}
-
-			else{
-				return WALL;
-			}
-//return 0;
+return;
 }
  
 /* Given a filename, re-represent the maze in the file pointer fptr */
@@ -90,26 +88,24 @@ char Get_location_type(FILE *fptr, int row, int col) {
 /* if the writing to a file fails, you should return -1 */ 
 /* you may assume that the maze is of the correct format */
 
-int Represent_maze_in_one_line(char *filename, FILE *fptr)
+int Represent_maze_in_one_line(char *filename, FILE * fptr)
 {
-
-	FILE * fp = fopen(filename, "w");
-	int f ;
+	FILE * output = fopen(filename, "w");
+	if (output == NULL) {
+		fprintf(stderr, "Error opening file");
+		return 0;
+  	}	
 
 	fseek(fptr, 0, SEEK_SET) ;
-
-	if (fp == NULL) {
-		fprintf(stderr, "Error opening file");
-		return -1;
-  	}	
-	
-	while ((f = fgetc(fptr)) != EOF) {
+	int f = fgetc(fptr);
+	int count = 0;
+	while (f != EOF) 
+	{
 		if (f != '\n'){
-			fputc(f, fp) ;
-		}
+		fprintf(output, "%c", (char) f);}
+		f = fgetc(fptr);
+		count++;
 	}
-
-	fclose(fp);
-
-	return 0;
+	fclose(output);
+	return count;
 }
