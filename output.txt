@@ -1,0 +1,33 @@
+answer02.c:55: error: conflicting types for ‘Get_location_type’
+answer02.h:31: note: previous declaration of ‘Get_location_type’ was here
+
+answer02.c:55: error: conflicting types for ‘Get_location_type’
+answer02.h:31: note: previous declaration of ‘Get_location_type’ was here
+
+answer02.c:55: error: conflicting types for ‘Get_location_type’
+answer02.h:31: note: previous declaration of ‘Get_location_type’ was here
+
+answer02.c:55: error: conflicting types for ‘Get_location_type’
+answer02.h:31: note: previous declaration of ‘Get_location_type’ was here
+
+TEST CASE: 1 (Find_maze_dimensions): 
+Failed to compile
+TEST CASE: 2 (Count_path_locations): 
+Failed to compile
+TEST CASE: 3 (Get_location_type): 
+Failed to compile
+TEST CASE: 4 (Represent_maze_in_one_line): 
+Failed to compile
+TEST CASE: Makefile : 
+FAIL
+TEST CASE: valgrind
+memcheck.log.0
+ missing file
+memcheck.log.1
+ missing file
+memcheck.log.2
+ missing file
+memcheck.log.3
+ missing file
+ PASS
+Points: 0.000000 
