@@ -13,19 +13,18 @@ void Find_maze_dimensions(FILE *fptr, int *nrow, int *ncol)
 
 	fseek(fptr, 0, SEEK_SET); // reach the end of file
 	
-	int f;
+	int f = fgetc(fptr);
 
 	while(f != EOF){ 
- 
+		if(f == '\n'){  // count the rows
+		(*nrow)++;
+		}
 	f = fgetc(fptr);
-
-	if(f == '\n'){  // count the rows
-	(*nrow)++;}
 	}
     
-	
 	int length = (int) ftell(fptr);	 // count the number of characters in the file
 	*ncol =  (length / (*nrow)) - 1; // total number of characters divided by rows
+return;
 }
 
 /* Count the number of locations that are PATH */
